@@ -10,5 +10,5 @@ export class ShippingComponent {
 
   constructor(private cartService: CartService) { }
 
-  //shippingCosts = ;
+  //shippingCosts = '';
 }

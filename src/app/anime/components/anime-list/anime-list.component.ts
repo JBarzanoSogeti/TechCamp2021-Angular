@@ -1,9 +1,9 @@
+import { Anime } from './../../interfaces/anime.interface';
+import { AnimeService } from './../../services/anime.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/shared/services/cart.service';
-import { Anime } from '../../interfaces/anime.interface';
-import { AnimeService } from '../../services/anime.service';
 
 @Component({
   selector: 'app-anime-list',
@@ -34,7 +34,10 @@ export class AnimeListComponent implements OnInit {
   }
 
   searchAnimeList() {
-    
+    this.titleSearch = this.checkoutForm.value.title;this.animeService.getAnimeList(this.titleSearch).subscribe((data: Anime[])=>{
+      console.log(data);
+      this.animeList = data;
+    });
   }
 
   addToCart(anime: Anime) {

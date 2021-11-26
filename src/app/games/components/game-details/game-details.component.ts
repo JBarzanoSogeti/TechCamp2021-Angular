@@ -22,6 +22,7 @@ export class GameDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private gameService: GameService,
+    private cartService: CartService,
     private storeService: StoreService) { 
 
       this.storeService.getStores().subscribe((data: any) => {
@@ -40,6 +41,7 @@ export class GameDetailsComponent implements OnInit {
       console.log(data);
       this.game = data.game;
       this.deals = data.deals;
+      this.textSearch = this.route.snapshot.queryParamMap.get("text") || '';
 
       this.deals?.forEach(element => {
         this.storeDeals.push({
@@ -50,9 +52,12 @@ export class GameDetailsComponent implements OnInit {
         });
       });
     });
+    
+    
   }
 
   addToCart(game: Game) {
+    this.cartService.addToCart({ title: game.external, price: game.cheapest * 1.5 });
     window.alert(`El producto ${game.external} ha sido añadido a la cesta!`);
   }
 }
